@@ -1,45 +1,15 @@
 package org.example.dao;
 
 import org.example.model.Client;
-import org.example.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.example.model.Ticket;
 
-public class ClientDao {
-    private SessionFactory sessionFactory = HibernateUtil.getInstance().getSessionFactory();
+import java.util.List;
 
-    // Create
-    public void save(Client client) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            session.save(client);
-            tx.commit();
-        }
-    }
-
-    // Read
-    public Client findById(Long id) {
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(Client.class, id);
-        }
-    }
-
-    // Update
-    public void update(Client client) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            session.update(client);
-            tx.commit();
-        }
-    }
-
-    // Delete
-    public void delete(Client client) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            session.delete(client);
-            tx.commit();
-        }
-    }
+public interface ClientDAO {
+    void saveClient(Client client) throws Exception;
+    Client getClient(int id) throws Exception;
+    List<Client> getAllClients() throws Exception;
+    List<Ticket> getAllTickets(Long clientId) throws Exception;
+    void updateClient(Long id, String name) throws Exception;
+    void deleteClient(Long clientId) throws Exception;
 }
